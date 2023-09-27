@@ -3,6 +3,7 @@ package com.example.viewdemo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     final String TAG = "GESTURE_DEMO";
-
+    boolean bigger = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +66,35 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+
     // set up onTouch Listener on TextView
     txtViewSample.setOnTouchListener(new CustomTouchListener(MainActivity.this){
+        @Override
+        public void onSingleClick() {
+            super.onSingleClick();
+            if(txtViewSample.getCurrentTextColor() != ResourcesCompat.getColor(getResources(),R.color.purple_200,getTheme()))
+            {
+                txtViewSample.setTextColor(ResourcesCompat.getColor(getResources(),R.color.purple_200,getTheme()));
+
+            }else{
+                txtViewSample.setTextColor(Color.rgb(255,255,255));
+            }
+
+        }
 
         @Override
         public void onDoubleClick() {
+
+            if(!bigger)
+            {
+                txtViewSample.setTextSize( txtViewSample.getTextSize() / getResources().getDisplayMetrics().density + 10);
+               bigger = true;
+            }
+            else {
+                txtViewSample.setTextSize( txtViewSample.getTextSize() / getResources().getDisplayMetrics().density - 10);
+                bigger = false;
+            }
             super.onDoubleClick();
         }
 
@@ -78,6 +103,26 @@ public class MainActivity extends AppCompatActivity {
             // here have the logic for what long click
             // on TextView should do
             super.onLongClick();
+        }
+
+        @Override
+        public void onSwipeUp() {
+            super.onSwipeUp();
+        }
+
+        @Override
+        public void onSwipeDown() {
+            super.onSwipeDown();
+        }
+
+        @Override
+        public void onSwipeLeft() {
+            super.onSwipeLeft();
+        }
+
+        @Override
+        public void onSwipeRight() {
+            super.onSwipeRight();
         }
 
         @Override
