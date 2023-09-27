@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -102,27 +104,44 @@ public class MainActivity extends AppCompatActivity {
         public void onLongClick() {
             // here have the logic for what long click
             // on TextView should do
+            if(txtViewSample.getPaint().isStrikeThruText())
+            {
+                txtViewSample.setPaintFlags(txtViewSample.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+            }
+            else{
+                txtViewSample.setPaintFlags(txtViewSample.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+            }
             super.onLongClick();
         }
 
         @Override
         public void onSwipeUp() {
             super.onSwipeUp();
+            int horzGravity = txtViewSample.getGravity() & Gravity.HORIZONTAL_GRAVITY_MASK;
+            txtViewSample.setGravity(horzGravity | Gravity.TOP);
         }
 
         @Override
         public void onSwipeDown() {
             super.onSwipeDown();
+            int vertzGravity = txtViewSample.getGravity() & Gravity.VERTICAL_GRAVITY_MASK;
+            txtViewSample.setGravity(vertzGravity | Gravity.BOTTOM);
         }
 
         @Override
         public void onSwipeLeft() {
             super.onSwipeLeft();
+            int horzLeft = txtViewSample.getGravity() & Gravity.HORIZONTAL_GRAVITY_MASK;
+            txtViewSample.setGravity(horzLeft | Gravity.LEFT);
         }
 
         @Override
         public void onSwipeRight() {
             super.onSwipeRight();
+            int horzRight = txtViewSample.getGravity() & Gravity.VERTICAL_GRAVITY_MASK;
+            txtViewSample.setGravity(horzRight | Gravity.RIGHT);
+
         }
 
         @Override
