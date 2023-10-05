@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SelfPracticeViewDemo</string>
+    <string name="txtSample">Creating Sample\nLine 1\nLine 2</string>
+    <string name="imgSample">Bird or Fire</string>
+    <string name="txtShowText">show Text</string>
+    <string name="txtShowBoth">Show Both</string>
+    <string name="txtShowImage">Show Image</string>
+
+</resources>
