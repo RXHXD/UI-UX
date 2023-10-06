@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,6 +64,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // set up on Touch Listener on TextView
+        txtViewSample.setOnTouchListener(new CustomTouchListener(MainActivity.this){
+            @Override
+            public void onLongClick() {
+                super.onLongClick();
+            }
+
+            @Override
+            public void onSingleClick() {
+                super.onSingleClick();
+            }
+
+            @Override
+            public void onDoubleClick() {
+                super.onDoubleClick();
+            }
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Log.d(TAG,"Entered TextView on Touch");
+                return super.onTouch(view, motionEvent);
+            }
+        });
+
+
 
     }
 }
