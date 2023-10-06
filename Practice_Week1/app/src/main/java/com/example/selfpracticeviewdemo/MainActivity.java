@@ -3,9 +3,12 @@ package com.example.selfpracticeviewdemo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     final String TAG ="GESTURE_DEMO";
+    boolean bigger = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,17 +72,74 @@ public class MainActivity extends AppCompatActivity {
         // set up on Touch Listener on TextView
         txtViewSample.setOnTouchListener(new CustomTouchListener(MainActivity.this){
             @Override
+            public void onSwipeUp() {
+                super.onSwipeUp();
+                int horzGravity = txtViewSample.getGravity() & Gravity.HORIZONTAL_GRAVITY_MASK;
+                txtViewSample.setGravity(horzGravity | Gravity.TOP);
+            }
+
+            @Override
+            public void onSwipeDown() {
+                int horzGravity = txtViewSample.getGravity() & Gravity.HORIZONTAL_GRAVITY_MASK;
+                txtViewSample.setGravity(horzGravity | Gravity.BOTTOM);
+                super.onSwipeDown();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                int vertzGravity = txtViewSample.getGravity() & Gravity.VERTICAL_GRAVITY_MASK;
+                txtViewSample.setGravity(vertzGravity | Gravity.LEFT);
+                super.onSwipeLeft();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                int vertzGravity = txtViewSample.getGravity() & Gravity.VERTICAL_GRAVITY_MASK;
+                txtViewSample.setGravity(vertzGravity | Gravity.RIGHT);
+                super.onSwipeRight();
+            }
+
+            @Override
             public void onLongClick() {
+
+                if(txtViewSample.getPaint().isStrikeThruText())
+                {
+                    txtViewSample.setPaintFlags(txtViewSample.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+
+                }else{
+                    txtViewSample.setPaintFlags(txtViewSample.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                }
                 super.onLongClick();
             }
 
             @Override
             public void onSingleClick() {
+
+
                 super.onSingleClick();
+
+                if(txtViewSample.getCurrentTextColor() != ResourcesCompat.getColor(getResources(),R.color.purple_200,getTheme())){
+                    txtViewSample.setTextColor(ResourcesCompat.getColor(getResources(),R.color.purple_200,getTheme()));
+
+                }
+                else{
+                    //txtViewSample.setTextColor(Color.WHITE);
+                      txtViewSample.setTextColor(Color.rgb(255,255,255));
+                }
             }
 
             @Override
             public void onDoubleClick() {
+
+                 if(!bigger)
+                 {
+                     txtViewSample.setTextSize(txtViewSample.getTextSize()/getResources().getDisplayMetrics().density + 10);
+                   bigger = true;
+                 } else{
+                     txtViewSample.setTextSize(txtViewSample.getTextSize()/getResources().getDisplayMetrics().density - 10);
+                   bigger = false;
+                 }
                 super.onDoubleClick();
             }
 
@@ -89,6 +150,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imageViewSample.setOnTouchListener(new CustomTouchListener(MainActivity.this){
+            @Override
+            public void onSingleClick() {
+                super.onSingleClick();
+            }
+
+            @Override
+            public void onDoubleClick() {
+                super.onDoubleClick();
+            }
+        });
 
 
     }

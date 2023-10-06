@@ -45,8 +45,51 @@ public class CustomTouchListener implements View.OnTouchListener{
 
         @Override
         public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+           final int SWIPE_DIST_THRESHOLD = 10;
+           final int SWIPE_VEL_THRESHOLD = 20;
+           float distX = e2.getX() - e1.getX();
+           float distY = e2.getY() - e1.getY();
+
+           if(Math.abs(distX) > Math.abs(distY)  &&
+                   Math.abs(distX) > SWIPE_DIST_THRESHOLD &&
+                   Math.abs(velocityX) > SWIPE_VEL_THRESHOLD)
+           {
+                // horizontal Swipe
+               if(distX > 0)
+               {
+                   onSwipeRight();
+               }
+               else{
+                   onSwipeLeft();
+               }
+           } else if (Math.abs(distY) > Math.abs(distX) &&
+                   Math.abs(distY) > SWIPE_DIST_THRESHOLD &&
+                    Math.abs(velocityY) > SWIPE_VEL_THRESHOLD ) {
+               // vertical swipe
+               if(distY > 0)
+               {
+                   onSwipeDown();
+               }
+               else{
+                   onSwipeUp();
+               }
+           }
+
             return super.onFling(e1, e2, velocityX, velocityY);
         }
+    }
+
+    public void onSwipeUp() {
+
+    }
+
+    public void onSwipeDown() {
+    }
+
+    public void onSwipeLeft() {
+    }
+
+    public void onSwipeRight() {
     }
 
     public void onSingleClick() {
