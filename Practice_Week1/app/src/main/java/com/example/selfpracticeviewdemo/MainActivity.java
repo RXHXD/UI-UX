@@ -153,12 +153,32 @@ public class MainActivity extends AppCompatActivity {
         imageViewSample.setOnTouchListener(new CustomTouchListener(MainActivity.this){
             @Override
             public void onSingleClick() {
+
                 super.onSingleClick();
+                 if(imageViewSample.getDrawable().getConstantState() != ResourcesCompat.getDrawable(
+                         getResources(),R.drawable.bird,getTheme()).getConstantState() )
+                 {
+                     imageViewSample.setImageResource(R.drawable.bird);
+
+                 }
+                 else{
+                     imageViewSample.setImageResource(R.drawable.fire);
+                 }
+
             }
 
             @Override
             public void onDoubleClick() {
+
                 super.onDoubleClick();
+
+                if(imageViewSample.getScaleType() != ImageView.ScaleType.FIT_XY)
+                {
+                    imageViewSample.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+                else{
+                    imageViewSample.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                }
             }
         });
 
