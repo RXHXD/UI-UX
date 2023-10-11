@@ -4,16 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
+import com.example.recyclerviewdemo.adapters.TuneAdapter;
 import com.example.recyclerviewdemo.databinding.ActivityMainBinding;
+import com.example.recyclerviewdemo.model.Tune;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import adapter.TuneAdapter;
-import model.Tune;
 
 public class MainActivity extends AppCompatActivity {
     List<String> TuneNames = new ArrayList<>(Arrays.asList("Beauty and the Beast",
@@ -21,31 +19,29 @@ public class MainActivity extends AppCompatActivity {
     List<Integer> TunePics = new ArrayList<>(Arrays.asList(R.drawable.beauty,
             R.drawable.lionking, R.drawable.marypoppins,
             R.drawable.gameofthrones, R.drawable.ozark ));
-    List<Tune> TuneList = new ArrayList<>();
+    List<Tune> TuneList = new ArrayList<>(); //empty list
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_main);
 
-        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
-
+        ActivityMainBinding binding
+                = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         LoadModel();
+
         TuneAdapter tuneAdapter = new TuneAdapter(TuneList);
         LinearLayoutManager lm = new LinearLayoutManager(this);
         binding.reccyclerViewTunes.setAdapter(tuneAdapter);
         binding.reccyclerViewTunes.setLayoutManager(lm);
 
-
     }
-
-    private void LoadModel()
-    {
-        for(int i=0;i<TuneNames.size();i++)
-        {
-            Tune eachTune  = new Tune(TuneNames.get(i),TunePics.get(i));
-            TuneList.add(eachTune);
+    private void LoadModel(){
+        for (int i = 0; i < TuneNames.size(); i++){
+            Tune eachTune = new Tune(TuneNames.get(i), TunePics.get(i));
+            TuneList.add(eachTune); //cannot be done if list is null
         }
     }
-
 }
