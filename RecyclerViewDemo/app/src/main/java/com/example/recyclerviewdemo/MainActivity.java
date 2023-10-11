@@ -1,9 +1,17 @@
 package com.example.recyclerviewdemo;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.recyclerviewdemo.adapters.TuneAdapter;
 import com.example.recyclerviewdemo.databinding.ActivityMainBinding;
@@ -36,6 +44,75 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager lm = new LinearLayoutManager(this);
         binding.reccyclerViewTunes.setAdapter(tuneAdapter);
         binding.reccyclerViewTunes.setLayoutManager(lm);
+
+        GridLayoutManager gm = new GridLayoutManager(this,2);
+        binding.reccyclerViewTunes.setLayoutManager(gm);
+
+
+        ItemTouchHelper.SimpleCallback callback = new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public float getSwipeThreshold(@NonNull RecyclerView.ViewHolder viewHolder) {
+                return 0.1f;
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+              return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                String TuneName = TuneList.get(viewHolder.getAdapterPosition()).getTuneName();
+                int position = viewHolder.getAdapterPosition();
+                 if(direction == ItemTouchHelper.LEFT)
+                 {
+//                     Toast.makeText(MainActivity.this,"Swiped Left ",+Toast.LENGTH_SHORT).show();
+//                     tuneAdapter.notifyDataSetChanged();
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                     EditText editTextInputName = new EditText(MainActivity.this);
+                     builder.setView(editTextInputName);
+                     builder.setTitle("Enter New Track");
+                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialogInterface, int i) {
+                             // get the new text
+                             // change the text
+                             // call notify data set Changed
+                             tuneAdapter.getAdapterTuneList().get(position).setTuneName(editTextInputName.getText().toString());
+                              tuneAdapter.notifyDataSetChanged();
+                         }
+                     });
+
+
+                     builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                         @Override
+                         public void onClick(DialogInterface dialogInterface, int i) {
+                               tuneAdapter.notifyDataSetChanged();
+                         }
+                     });
+
+                     builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                         @Override
+                         public void onDismiss(DialogInterface dialogInterface) {
+                             tuneAdapter.
+                                     notifyDataSetChanged();
+                         }
+                     });
+
+
+                  builder.show();
+
+                 } else{
+                     Toast.makeText(MainActivity.this,"Swiped Right"+TuneName,Toast.LENGTH_SHORT).show();
+                    tuneAdapter.notifyDataSetChanged();
+                 }
+            }
+        };
+
+        ItemTouchHelper helper = new ItemTouchHelper(callback);
+        helper.attachToRecyclerView(binding.reccyclerViewTunes);
+
 
     }
     private void LoadModel(){

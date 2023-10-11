@@ -99,6 +99,7 @@ public class TuneAdapter extends RecyclerView.Adapter<TuneAdapter.TuneViewHolder
                 public void onClick(View view) {
                     if( ((ColorDrawable)TuneViewHolder.this.holderBinding.getRoot().getBackground()).getColor() != Color.LTGRAY ){
                         TuneViewHolder.this.holderBinding.getRoot().setBackgroundColor(Color.LTGRAY);
+
                     }
                     else{
                         TuneViewHolder.this.holderBinding.getRoot().setBackgroundColor(Color.parseColor("FAFAFA"));
