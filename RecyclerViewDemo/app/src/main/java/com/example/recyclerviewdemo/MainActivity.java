@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         binding.reccyclerViewTunes.setAdapter(tuneAdapter);
         binding.reccyclerViewTunes.setLayoutManager(lm);
 
-        GridLayoutManager gm = new GridLayoutManager(this,2);
+        GridLayoutManager gm = new GridLayoutManager(this,1);
         binding.reccyclerViewTunes.setLayoutManager(gm);
 
 
