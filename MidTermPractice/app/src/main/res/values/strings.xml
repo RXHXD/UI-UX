@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MidTermUiUx</string>
+    <string name="gesture">gesture Handling</string>
+    <string name="recyclerview">recyler view</string>
+    <string name="txtGesture">Geture handler Activity</string>
+    <string name="txtRecycler">Recycler Activtity</string>
+    <string name="txtimgDescription">image</string>
+    <string name="txtView">This is line 1 \n This is line2 \n This is Line 3</string>
+</resources>
