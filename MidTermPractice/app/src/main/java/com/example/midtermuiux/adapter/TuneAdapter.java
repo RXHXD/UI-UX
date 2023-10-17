@@ -2,6 +2,7 @@ package com.example.midtermuiux.adapter;
 
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +39,17 @@ public class TuneAdapter extends RecyclerView.Adapter<TuneAdapter.TuneViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TuneViewHolder holder, int position) {
-      //   holder.holderbinding.getRoot().setBackgroundColor(Color.parseColor("FAFAFA"));
+         holder.holderbinding.getRoot().setBackgroundColor(Color.parseColor("#FAFAFA"));
          holder.holderbinding.tunename.setText(adapterTuneList.get(position).getTuneName());
          holder.holderbinding.Tunepic.setImageResource(adapterTuneList.get(position).getTunePic());
          if(selectedIndex == position)
          {
              holder.holderbinding.tuneplayorpause.setImageResource(R.drawable.pause);
+             System.out.println("pause");
          }
          else{
              holder.holderbinding.tuneplayorpause.setImageResource(R.drawable.play);
+             System.out.println("play");
          }
     }
 
@@ -80,6 +83,37 @@ public class TuneAdapter extends RecyclerView.Adapter<TuneAdapter.TuneViewHolder
         public TuneViewHolder(@NonNull View itemView,LayoutBinding holderBinding) {
             super(itemView);
             this.holderbinding = holderBinding;
+            this.holderbinding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(((ColorDrawable)TuneViewHolder.this.holderbinding.getRoot().getBackground()).getColor() != Color.LTGRAY)
+                    {
+                        TuneViewHolder.this.holderbinding.getRoot().setBackgroundColor(Color.LTGRAY);
+                    }
+                    else{
+                        TuneViewHolder.this.holderbinding.getRoot().setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    }
+                }
+            });
+
+            this.holderbinding.tuneplayorpause.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(TuneViewHolder.this.getAdapterPosition() == selectedIndex)
+                    {
+                        setSelectedIndex(-1);
+                    }
+                    else {
+                        setSelectedIndex(TuneViewHolder.this.getAdapterPosition());
+                    }
+                }
+            });
+
+        }
+
+        public TuneViewHolder(@NonNull View itemView)
+        {
+            super(itemView);
         }
     }
 
