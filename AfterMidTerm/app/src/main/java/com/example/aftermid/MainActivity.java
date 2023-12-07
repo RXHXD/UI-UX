@@ -1,5 +1,8 @@
 package com.example.aftermid;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -38,12 +41,41 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        binding.mainContent.mainLayout.setBackgroundColor(Color.parseColor("#FAFAFA"));
+        binding.fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                ColorDrawable colorDrawable = (ColorDrawable)binding.mainContent.mainLayout.getBackground();
+                int colorId = colorDrawable.getColor();
+                if(colorId == Color.LTGRAY)
+                {
+                    binding.mainContent.mainLayout.setBackgroundColor(Color.parseColor("#FAFAFA"));
+                    binding.fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+                }
+                else{
+                    binding.mainContent.mainLayout.setBackgroundColor(Color.LTGRAY);
+                    binding.fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAFAFA")));
+                }
+                Snackbar.make(view, "Like the new Color?", Snackbar.LENGTH_LONG)
                         .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
+                        .setAction("Undo", null).setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                             if(colorId == Color.LTGRAY)
+                             {
+
+                                 binding.mainContent.mainLayout.setBackgroundColor(Color.LTGRAY);
+                                 binding.fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FAFAFA")));
+                             }
+
+                             else{
+                                 binding.mainContent.mainLayout.setBackgroundColor(Color.parseColor("#FAFAFA"));
+                                 binding.fab.setBackgroundTintList(ColorStateList.valueOf(Color.LTGRAY));
+                             }
+
+                            }
+                        }).show();
             }
         });
     }
