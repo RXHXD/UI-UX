@@ -45,4 +45,7 @@
     </string>
     <string name="action_search">search</string>
     <string name="action_profile">profile</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txtListView">Show List View</string>
 </resources>

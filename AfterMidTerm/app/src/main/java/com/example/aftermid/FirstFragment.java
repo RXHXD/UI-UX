@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -46,12 +48,30 @@ public class FirstFragment extends Fragment {
                binding.spinnerColors.setAdapter(colorSpecAdapter);
            }
        });
+
+       binding.spinnerColors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+           @Override
+           public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+               Toast.makeText(requireActivity(),FragColors.get(i).getColorDesc(),Toast.LENGTH_SHORT);
+           }
+
+           @Override
+           public void onNothingSelected(AdapterView<?> adapterView) {
+
+           }
+       });
+
+
+
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
              Bundle bundle = new Bundle();
              bundle.putInt("COLORVAL",FragColors.get(binding.spinnerColors.getSelectedItemPosition()).getColorVal());
-                NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
+             NavHostFragment.findNavController(FirstFragment.this).navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
+
+
+
             }
         });
 
