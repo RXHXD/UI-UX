@@ -24,5 +24,19 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_listViewFragment"
+            app:destination="@id/listViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listViewFragment"
+        android:name="com.example.aftermid.ListViewFragment"
+        android:label="@string/txtListView"
+        tools:layout="@layout/fragment_list_view"
+        >
+
+        <action
+            android:id="@+id/action_listViewFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

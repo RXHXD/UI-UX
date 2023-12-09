@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +55,7 @@ public class ListViewFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("COLORVAL",FragColors.get(i).getColorVal());
+                NavHostFragment.findNavController(ListViewFragment.this).navigate(R.id.action_listViewFragment_to_SecondFragment,bundle);
 
             }
         });
