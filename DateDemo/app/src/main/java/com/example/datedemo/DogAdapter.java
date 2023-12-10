@@ -1,19 +1,29 @@
 package com.example.datedemo;
 
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.datedemo.databinding.LayoutDogitemBinding;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
     List<Dog> AdapterDogList;
+    OnItemClickListener onItemClickListener;
 
+    public DogAdapter(List<Dog> adapterDogList, OnItemClickListener onItemClickListener) {
+        AdapterDogList = adapterDogList;
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public DogAdapter(List<Dog> adapterDogList) {
 
@@ -36,9 +46,17 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
         return holder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull DogViewHolder holder, int position) {
-
+      holder.binding.txtViewId
+              .setText(Integer.toString(AdapterDogList.get(position).getId()));
+      holder.binding.txtViewName.setText(AdapterDogList.get(position).getDogName());
+      holder.binding.txtViewBreed.setText(AdapterDogList.get(position).getDogBreed());
+      holder.binding.imgViewDogPic.setImageResource(AdapterDogList.get(position).getDogPicDrawable());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy");
+        String dobStr = formatter.format(AdapterDogList.get(position).getDogDob());
+        holder.binding.txtViewDOB.setText(dobStr);
     }
 
     @Override
@@ -57,6 +75,16 @@ public class DogAdapter extends RecyclerView.Adapter<DogAdapter.DogViewHolder> {
         public DogViewHolder(@NonNull View itemView, LayoutDogitemBinding binding) {
             super(itemView);
             this.binding = binding;
+           this.binding.getRoot().setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   onItemClickListener.onItemClick(getAdapterPosition());
+               }
+           });
         }
     }
+    public interface  OnItemClickListener {
+        public void onItemClick(int i);
+    }
+
 }
