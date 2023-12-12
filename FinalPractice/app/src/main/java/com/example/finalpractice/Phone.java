@@ -1,18 +1,20 @@
 package com.example.finalpractice;
 
 public class Phone {
-    String phoneColor;
+    int phoneColor;
     String phoneName;
 
-    public Phone(String phoneColor) {
+    public Phone(int phoneColor, String phoneName) {
         this.phoneColor = phoneColor;
+        this.phoneName = phoneName;
     }
 
-    public String getPhoneColor() {
+
+    public int getPhoneColor() {
         return phoneColor;
     }
 
-    public void setPhoneColor(String phoneColor) {
+    public void setPhoneColor(int phoneColor) {
         this.phoneColor = phoneColor;
     }
 

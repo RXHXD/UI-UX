@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import androidx.core.view.WindowCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -56,7 +57,19 @@ public class MainActivity extends AppCompatActivity {
 
         // Adding manual Data into the List
         List<String> phoneDesc = new ArrayList<>(Arrays.asList("Nakia","Blackbeery","Lenova","Asus"));
-        List<Integer> phoneColor = new ArrayList<>(Arrays.asList(R.color.))
+        List<Integer> phoneColor = new ArrayList<>(Arrays.asList(R.color.black,R.color.green,R.color.fuchsia,R.color.teal));
+
+        // adding element to phone model
+        for (int i=0;i<phoneDesc.size();i++)
+        {
+            Phone phone = new Phone(phoneColor.get(i),phoneDesc.get(i));
+            phoneList.add(phone);
+        }
+
+          // making instance of Phone View Model
+        PhoneViewModel phoneViewModel = new ViewModelProvider(this).get(PhoneViewModel.class);
+        phoneViewModel.loadColorList(phoneList);
+
 
     }
 
@@ -68,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
