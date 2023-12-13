@@ -1,5 +1,6 @@
 package com.example.finalpractice;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,13 @@ public class SecondFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+       if(getArguments() != null)
+       {
+           int phoneColor = getArguments().getInt("phoneColor",Color.BLUE);
+           binding.textviewSecond.setTextColor(phoneColor);
+       }
+
+
 
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,6 +44,8 @@ public class SecondFragment extends Fragment {
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
         });
+
+
     }
 
     @Override
