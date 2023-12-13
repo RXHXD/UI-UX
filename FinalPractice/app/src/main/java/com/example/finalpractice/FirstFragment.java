@@ -24,7 +24,9 @@ public class FirstFragment extends Fragment {
     PhoneViewModel phoneViewModel;
     PhoneAdapter phoneAdapter;
 
-
+    List<DeepPhone> phoneList1 = new ArrayList<>();
+    PhoneViewModel phoneViewModel1;
+    DeepPhoneAdapter phoneAdapter1;
     private FragmentFirstBinding binding;
 
     @Override
@@ -41,27 +43,36 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         phoneViewModel = new ViewModelProvider(requireActivity()).get(PhoneViewModel.class);
-        phoneViewModel.getPhoneList().observe(getViewLifecycleOwner(), new Observer<List<Phone>>() {
+//        phoneViewModel.getPhoneList().observe(getViewLifecycleOwner(), new Observer<List<Phone>>() {
+//            @Override
+//            public void onChanged(List<Phone> phones) {
+//                phoneList = phones;
+//                phoneAdapter = new PhoneAdapter(phoneList);
+//                binding.spinner.setAdapter(phoneAdapter);
+//            }
+//        });
+
+        phoneViewModel.getPhoneList1().observe(requireActivity(), new Observer<List<DeepPhone>>() {
             @Override
-            public void onChanged(List<Phone> phones) {
-                phoneList = phones;
-                phoneAdapter = new PhoneAdapter(phoneList);
-                binding.spinner.setAdapter(phoneAdapter);
+            public void onChanged(List<DeepPhone> deepPhones) {
+                phoneList1 = deepPhones;
+                phoneAdapter1 = new DeepPhoneAdapter(phoneList1);
+                binding.spinner.setAdapter(phoneAdapter1);
             }
         });
 
 
-      binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-          @Override
-          public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-              Toast.makeText(requireActivity(),phoneList.get(i).getPhoneName(),Toast.LENGTH_SHORT).show();
-          }
-
-          @Override
-          public void onNothingSelected(AdapterView<?> adapterView) {
-
-          }
-      });
+//      binding.spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//          @Override
+//          public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//              Toast.makeText(requireActivity(),phoneList.get(i).getPhoneName(),Toast.LENGTH_SHORT).show();
+//          }
+//
+//          @Override
+//          public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//          }
+//      });
 
         binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
             @Override

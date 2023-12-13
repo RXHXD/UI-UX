@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
              String modelName = eachPhoneField[1];
              String monthlyPlan = eachPhoneField[2];
              String phoneCameraDescription = eachPhoneField[3];
-             int totalPhoneAmount = Integer.parseInt(eachPhoneField[4]);
+             String totalPhoneAmount = eachPhoneField[4];
              String phonereleaseDate = eachPhoneField[5];
 
              // one line for putting all the images
@@ -84,7 +84,9 @@ public class MainActivity extends AppCompatActivity {
       {
           Log.d("msg",deepPhoneList.get(i).toString());
       }
-
+        // making instance of Phone View Model for Phone Model
+        PhoneViewModel phoneViewModel = new ViewModelProvider(this).get(PhoneViewModel.class);
+        phoneViewModel.loadColorList1(deepPhoneList);
 
 
     }
@@ -135,9 +137,9 @@ public class MainActivity extends AppCompatActivity {
         // call csv file
         ReadCsv();
 
-          // making instance of Phone View Model
-        PhoneViewModel phoneViewModel = new ViewModelProvider(this).get(PhoneViewModel.class);
-        phoneViewModel.loadColorList(phoneList);
+          // making instance of Phone View Model for Phone Model
+      //  PhoneViewModel phoneViewModel = new ViewModelProvider(this).get(PhoneViewModel.class);
+       // phoneViewModel.loadColorList(phoneList);
     }
 
     @Override

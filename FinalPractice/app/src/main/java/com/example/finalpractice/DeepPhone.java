@@ -8,12 +8,12 @@ public class DeepPhone {
    String monthlyRate;
    String phoneCameraSpec;
 
-    int phoneTotalPrice;
+    String phoneTotalPrice;
    int phonePicDrawable;
 
    LocalDate phonereleaseDate;
 
-    public DeepPhone(int id, String companyName, String monthlyRate, String phoneCameraSpec, int phoneTotalPrice, int phonePicDrawable, LocalDate phonereleaseDate) {
+    public DeepPhone(int id, String companyName, String monthlyRate, String phoneCameraSpec, String phoneTotalPrice, int phonePicDrawable, LocalDate phonereleaseDate) {
         this.id = id;
         this.companyName = companyName;
         this.monthlyRate = monthlyRate;
@@ -72,11 +72,11 @@ public class DeepPhone {
         this.phonereleaseDate = phonereleaseDate;
     }
 
-    public int getPhoneTotalPrice() {
+    public String getPhoneTotalPrice() {
         return phoneTotalPrice;
     }
 
-    public void setPhoneTotalPrice(int phoneTotalPrice) {
+    public void setPhoneTotalPrice(String phoneTotalPrice) {
         this.phoneTotalPrice = phoneTotalPrice;
     }
 
