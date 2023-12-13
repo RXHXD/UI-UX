@@ -24,6 +24,9 @@ public class ListViewFragment extends Fragment {
     FragmentListViewBinding binding;
     List<Phone> phoneInfo;
 
+    List<DeepPhone> phoneInfo1;
+
+
 
 
     @Override
@@ -37,23 +40,42 @@ public class ListViewFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        //        PhoneViewModel phoneViewModel = new ViewModelProvider(requireActivity()).get(PhoneViewModel.class);
+//        phoneViewModel.getPhoneList().observe(getViewLifecycleOwner(), new Observer<List<Phone>>() {
+//            @Override
+//            public void onChanged(List<Phone> phones) {
+//                phoneInfo = phones;
+//                binding.listviewfragment.setAdapter(new PhoneAdapter(phoneInfo));
+//            }
+//        });
+
         PhoneViewModel phoneViewModel = new ViewModelProvider(requireActivity()).get(PhoneViewModel.class);
-        phoneViewModel.getPhoneList().observe(getViewLifecycleOwner(), new Observer<List<Phone>>() {
+        phoneViewModel.getPhoneList1().observe(getViewLifecycleOwner(), new Observer<List<DeepPhone>>() {
             @Override
-            public void onChanged(List<Phone> phones) {
-                phoneInfo = phones;
-                binding.listviewfragment.setAdapter(new PhoneAdapter(phoneInfo));
+            public void onChanged(List<DeepPhone> deepPhones) {
+                phoneInfo1 = deepPhones;
+                binding.listviewfragment.setAdapter(new DeepPhoneAdapter(phoneInfo1));
             }
         });
+
+
+//        binding.listviewfragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("phoneColor",phoneInfo.get(i).getPhoneColor());
+//
+//                // navigate with bundle info
+//                NavHostFragment.findNavController(ListViewFragment.this).navigate(R.id.action_listviewfragment_to_SecondFragment,bundle);
+//            }
+//        });
 
         binding.listviewfragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle = new Bundle();
-                bundle.putInt("phoneColor",phoneInfo.get(i).getPhoneColor());
-
-                // navigate with bundle info
-                NavHostFragment.findNavController(ListViewFragment.this).navigate(R.id.action_listviewfragment_to_SecondFragment,bundle);
+                NavHostFragment.findNavController(ListViewFragment.this).navigate(R.id.action_listviewfragment_to_SecondFragment);
             }
         });
 

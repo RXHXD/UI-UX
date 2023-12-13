@@ -15,6 +15,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.finalpractice.databinding.FragmentFirstBinding;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,7 +80,14 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 // send information from one fragment to another
                 Bundle bundle = new Bundle();
-                bundle.putInt("phoneColor",phoneList.get(binding.spinner.getSelectedItemPosition()).getPhoneColor());
+               bundle.putString("companyName",phoneList1.get(binding.spinner.getSelectedItemPosition()).getCompanyName());
+                bundle.putString("monthlyRate",phoneList1.get(binding.spinner.getSelectedItemPosition()).getMonthlyRate());
+                bundle.putString("phoneCameraSpec",phoneList1.get(binding.spinner.getSelectedItemPosition()).getPhoneCameraSpec());
+                bundle.putString("phoneTotalPrice",phoneList1.get(binding.spinner.getSelectedItemPosition()).getPhoneTotalPrice());
+
+
+
+                // bundle.putInt("phoneColor",phoneList.get(binding.spinner.getSelectedItemPosition()).getPhoneColor());
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(R.id.action_FirstFragment_to_SecondFragment,bundle);
             }
